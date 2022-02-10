@@ -6,6 +6,7 @@ import java.util.*;
 
 public class lectorDeArchivos {
     List<Persona> personas;
+    int linea;
     void run() {
         File archivo = null;
         FileReader fr = null;
@@ -37,8 +38,12 @@ public class lectorDeArchivos {
                     }
                 }
                 if(linea2.length==3){
-                    poblacion=Optional.of(linea2[1]);
-                    edad=Optional.of(Integer.parseInt(linea2[2]));
+                    if(linea2[1]==""){
+                        edad=Optional.of(Integer.parseInt(linea2[2]));
+                    }else{
+                        poblacion=Optional.of(linea2[1]);
+                        edad=Optional.of(Integer.parseInt(linea2[2]));
+                    }
                 }
 
 
@@ -61,6 +66,7 @@ public class lectorDeArchivos {
     }
 
     void representarFichero(){
-        personas.stream().filter(persona -> persona.getEdad()<25).forEach(p -> p.toString());
+        linea=0;
+        personas.stream().filter(persona -> persona.getEdad()<25).forEach(p ->{ System.out.println("Linea:"+linea+": "+p.toString());linea++;});
     }
 }
