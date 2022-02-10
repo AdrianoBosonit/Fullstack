@@ -1,18 +1,20 @@
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.util.Optional;
-import java.util.OptionalDouble;
+import java.util.*;
+
 
 public class lectorDeArchivos {
-
+    List<Persona> personas;
     void run() {
         File archivo = null;
         FileReader fr = null;
         BufferedReader br = null;
-        String nombre;
+        Optional<String> nombre;
         Optional<String> poblacion;
-        Integer edad;
+        Optional<Integer> edad;
+        personas=new ArrayList();
+
 
         try {
             archivo = new File("personas.txt");
@@ -20,15 +22,28 @@ public class lectorDeArchivos {
             br = new BufferedReader(fr);
 
             String linea;
-
+            String[] linea2;
             while ((linea = br.readLine()) != null){
-                String[] linea2 = linea.split("\\:");
-                nombre=Optional.ofNullable(linea2[0]).get());
-                poblacion=Optional.ofNullable(linea2[1]).;
+                linea2 = linea.split("\\:");
+                nombre=Optional.of(linea2[0]);
+                poblacion=Optional.empty();
+                edad=Optional.empty();
+                if(linea2.length==2){
+                    if(linea2[1].chars().allMatch((Character::isDigit))){
+                        edad=Optional.of(Integer.parseInt(linea2[1]));
+
+                    }else{
+                        poblacion=Optional.of(linea2[1]);
+                    }
+                }
+                if(linea2.length==3){
+                    poblacion=Optional.of(linea2[1]);
+                    edad=Optional.of(Integer.parseInt(linea2[2]));
+                }
 
 
+                personas.add(new Persona(nombre.orElse("desconocido"),poblacion.orElse("desconocido"),edad.orElse(-1)));
 
-                System.out.println(nombre+"    "+poblacion.get());
 
             }
         } catch (Exception e) {
@@ -43,5 +58,9 @@ public class lectorDeArchivos {
                 e2.printStackTrace();
             }
         }
+    }
+
+    void representarFichero(){
+        personas.stream().filter(persona -> persona.getEdad()<25).forEach(p -> p.toString());
     }
 }
