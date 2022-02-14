@@ -8,4 +8,5 @@ public interface PersonaService {
     public void setCiudad(String ciudad);
     public int getEdad();
     public void setEdad(int edad);
+    public Persona getPersona();
 }
