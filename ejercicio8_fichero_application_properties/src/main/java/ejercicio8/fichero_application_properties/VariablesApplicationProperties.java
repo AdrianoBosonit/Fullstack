@@ -13,6 +13,6 @@ class VariablesApplicationProperties {
     @Value("${My.VAR2}")
     private String variable2;
 
-    @Value("${VAR3:var3 no tiene valor}")
+    @Value("${VAR_SISTEMA:var3 no tiene valor}")
     private String variable3;
 }

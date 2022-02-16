@@ -1,0 +1,1 @@
+java -jar -Dspring.profiles.active=Perfil2 fichero_application_properties-0.0.1-SNAPSHOT.jar

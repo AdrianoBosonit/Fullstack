@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Main-Class: ejercicio8.fichero_application_properties.FicheroApplication
+ PropertiesApplication
+

@@ -23,7 +23,7 @@ public class Controlador {
 
     @GetMapping("/var3")
     public String enviarInfValor3() {
-        return "valor de la var3 es:" +var.getVar3();
+        return "valor de la var3 es:" +variables.getVariable3();
 
     }
 
