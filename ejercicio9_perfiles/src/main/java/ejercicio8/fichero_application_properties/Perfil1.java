@@ -1,5 +1,6 @@
 package ejercicio8.fichero_application_properties;
 
+import lombok.Data;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 public class Perfil1 implements Perfiles {
