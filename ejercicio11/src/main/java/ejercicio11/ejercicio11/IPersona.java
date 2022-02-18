@@ -3,9 +3,16 @@ package ejercicio11.ejercicio11;
 import java.util.List;
 
 public interface IPersona {
-    public void anadirPersona(PersonaInputDTO persona) throws Exception;
-    List<PersonaOutputDTO> getAll();
-    PersonaOutputDTO buscaId(Integer id) throws Exception;
-    List<PersonaOutputDTO> buscaNombre(String nombre) throws Exception;
+    public PersonaOutputDTO anadirPersona(PersonaInputDTO persona) throws Exception;
+
+    public List<PersonaOutputDTO> getAll();
+
+    public PersonaOutputDTO buscaId(Integer id) throws Exception;
+
+    public List<PersonaOutputDTO> buscaNombre(String nombre) throws Exception;
+
+    public PersonaOutputDTO removeId(Integer id) throws Exception;
+
+    public PersonaOutputDTO modify(PersonaInputDTO personaInputDTO) throws Exception;
 
 }
