@@ -35,7 +35,6 @@ public class PersonaService implements IPersona {
 
     @Override
     public PersonaOutputDTO buscaId(Integer id) {
-        System.out.println("HOla");
         return new PersonaOutputDTO(personaRepo.findById(id).orElseThrow(() -> new NotFoundException("ID no encontrado")));
     }
 
