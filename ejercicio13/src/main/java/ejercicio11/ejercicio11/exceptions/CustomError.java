@@ -1,13 +1,10 @@
 package ejercicio11.ejercicio11.exceptions;
 
-
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.util.Date;
 
 @Getter
-
 public class CustomError {
     private Date timestamp;
     private String mensaje;
