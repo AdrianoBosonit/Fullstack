@@ -5,7 +5,6 @@ import ejercicio11.ejercicio11.content.Persona.application.interfaces.IPersona;
 import ejercicio11.ejercicio11.content.Persona.infrastructure.dto.input.PersonaInputDTO;
 import ejercicio11.ejercicio11.content.Persona.infrastructure.dto.output.PersonaOutputDTO;
 import ejercicio11.ejercicio11.content.Profesor.infrastructure.dto.output.ProfesorOutputDTO;
-import ejercicio11.ejercicio11.shared.IFeign;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,8 +18,6 @@ import java.util.List;
 public class ControladorPersona {
     @Autowired
     IPersona personaService;
-    @Autowired
-    IFeign iFeignServer;
 
 
     @PostMapping("/userAdd")
@@ -56,20 +53,10 @@ public class ControladorPersona {
 
     @GetMapping("/getProf/{idProfesor}")
     public ResponseEntity<ProfesorOutputDTO> devolverProfesor(@PathVariable String idProfesor) {
-        ResponseEntity<ProfesorOutputDTO> rs =new RestTemplate().getForEntity("http://localhost:8082/profesor/"+idProfesor,ProfesorOutputDTO.class);
+        return new RestTemplate().getForEntity("http://localhost:8080/persona/getProf/"+idProfesor,ProfesorOutputDTO.class,personaService.buscaProfesor(idProfesor));
         //return new ResponseEntity<>( personaService.buscaProfesor(idProfesor), HttpStatus.OK);
-        return ResponseEntity.ok(rs.getBody());
 
     }
-
-
-    @GetMapping("feign/{idProfesor}")
-    ResponseEntity<ProfesorOutputDTO> call(@PathVariable String idProfesor){
-        ResponseEntity<ProfesorOutputDTO> rs= iFeignServer.call(idProfesor);
-        return rs;
-
-    }
-
 
 
 }
