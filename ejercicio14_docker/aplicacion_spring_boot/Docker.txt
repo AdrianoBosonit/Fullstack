@@ -1,0 +1,35 @@
+- Para listar los contenedores que estan activos: docker ps
+- Para descargar una umagen solo: docker pull nombre
+- Para descargar una imagen y ejecutarla: docker run nombre
+- Para ejecutarla y quedarte dentro de la imagen: docker tun -it nombre
+- Para ver todas las imagenes: docker ps -a
+- Para lanzar un contenedor: docker start containerId(columna names de docker ps -a)
+
+NOTA: si hcaes dos veces docker run ejetumas de nuevo un contenedor, por tanto para conservar archivos dentro docker start
+
+- Para conectarse a un contenedor que ya esta corriendo y ejecuta un comando: docker exec -it ConainerId bash
+- Para borrar: docker -rm containerId
+- Para darle nombre a el contenedor al ejecutarlo: docker run --name -it ubuntu
+- Para ver todas las imagenes que tienes: docker images
+- Para borrar una imgane: docker rmi containerId o name
+- Para crear el contenedor con variables hay que poner un -e: docker run --name mysql-clase -e MYSQL_ROOT_PASSWORD=clase -d mysql
+- Para parar el contenedor: docker stop nombre
+- Para crear el contenedor ademas asignandole un puerto(maquina:host): - Para crear el contenedor con variables hay que poner un -e: docker run --name mysql-clase -e MYSQL_ROOT_PASSWORD=clase -p3306:3306 -d mysql
+- Para asignar una ruta se usa el comando -v: docker run --name-nginx -d -v ~/nginxlogs:/var/log/nginx -p 5000:80 nginx
+
+Ejemplo de DOCKERFILE
+FROM openjdk:11
+EXPOSE 8081
+COPY /target/*.jar /usr/local/lib/spring.jar
+ENTRYOINT {"java","-jar","/usr/local/lib/spring.jar"}
+
+- Para construir una imagen: docker build -t nombre .
+
+NOTA: Importante el punto al final, ese punto indica que tiene que buscar el DOCKERFILE en la ruta en la que esta
+
+Ejemplo de ejecucion de imagen: docker run -p8081:8081 nombre
+
+NOTA: Control C para pararlo
+
+- Para ver que esta pasando: docker logs containerId
+
