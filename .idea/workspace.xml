@@ -1,7 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3a4d2750-0f63-4599-9774-ca8a8216dd71" name="Changes" comment="" />
+    <list default="true" id="3a4d2750-0f63-4599-9774-ca8a8216dd71" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/ejercicio13 - copia/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejercicio13 - copia/.mvn/wrapper/maven-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejercicio13 - copia/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejercicio13 - copia/mvnw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejercicio13 - copia/mvnw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejercicio13 - copia/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejercicio13 - copia/src/main/java/ejercicio11/ejercicio11/Ejercicio11Application.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejercicio13 - copia/src/main/java/ejercicio11/ejercicio11/content/Asignatura/application/interfaces/IEstudianteAsignatura.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejercicio13 - copia/src/main/java/ejercicio11/ejercicio11/content/Asignatura/application/services/EstudianteAsignaturaServiceAsignatura.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejercicio13 - copia/src/main/java/ejercicio11/ejercicio11/content/Asignatura/domain/EstudianteAsignaturaEntity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejercicio13 - copia/src/main/java/ejercicio11/ejercicio11/content/Asignatura/infrastructure/ControladorEstudianteAsignatura.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejercicio13 - copia/src/main/java/ejercicio11/ejercicio11/content/Asignatura/infrastructure/dto/input/EstudianteAsignaturaInputDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejercicio13 - copia/src/main/java/ejercicio11/ejercicio11/content/Asignatura/infrastructure/dto/output/EstudianteAsignaturaOutputDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejercicio13 - copia/src/main/java/ejercicio11/ejercicio11/content/Asignatura/repository/EstudianteAsignaturaRepo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejercicio13 - copia/src/main/java/ejercicio11/ejercicio11/content/Estudiante/application/interfaces/IEstudiante.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejercicio13 - copia/src/main/java/ejercicio11/ejercicio11/content/Estudiante/application/services/EstudianteService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejercicio13 - copia/src/main/java/ejercicio11/ejercicio11/content/Estudiante/domain/EstudianteEntity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejercicio13 - copia/src/main/java/ejercicio11/ejercicio11/content/Estudiante/infrastructure/ControladorEstudiante.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejercicio13 - copia/src/main/java/ejercicio11/ejercicio11/content/Estudiante/infrastructure/dto/input/EstudianteInputDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejercicio13 - copia/src/main/java/ejercicio11/ejercicio11/content/Estudiante/infrastructure/dto/output/EstudianteOutputFullDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejercicio13 - copia/src/main/java/ejercicio11/ejercicio11/content/Estudiante/infrastructure/dto/output/EstudianteOutputSimpleDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejercicio13 - copia/src/main/java/ejercicio11/ejercicio11/content/Estudiante/repository/EstudianteRepo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejercicio13 - copia/src/main/java/ejercicio11/ejercicio11/content/Persona/application/interfaces/IPersona.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejercicio13 - copia/src/main/java/ejercicio11/ejercicio11/content/Persona/application/service/PersonaService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejercicio13 - copia/src/main/java/ejercicio11/ejercicio11/content/Persona/domain/PersonaEntity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejercicio13 - copia/src/main/java/ejercicio11/ejercicio11/content/Persona/infrastructure/ControladorPersona.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejercicio13 - copia/src/main/java/ejercicio11/ejercicio11/content/Persona/infrastructure/dto/input/PersonaInputDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejercicio13 - copia/src/main/java/ejercicio11/ejercicio11/content/Persona/infrastructure/dto/output/PersonaOutputDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejercicio13 - copia/src/main/java/ejercicio11/ejercicio11/content/Persona/infrastructure/dto/output/PersonaOutputDTOFullEstudiante.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejercicio13 - copia/src/main/java/ejercicio11/ejercicio11/content/Persona/infrastructure/dto/output/PersonaOutputDTOFullProfesor.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejercicio13 - copia/src/main/java/ejercicio11/ejercicio11/content/Persona/repository/PersonaRepo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejercicio13 - copia/src/main/java/ejercicio11/ejercicio11/content/Profesor/application/interfaces/IProfesor.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejercicio13 - copia/src/main/java/ejercicio11/ejercicio11/content/Profesor/application/services/ProfesorService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejercicio13 - copia/src/main/java/ejercicio11/ejercicio11/content/Profesor/domain/ProfesorEntity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejercicio13 - copia/src/main/java/ejercicio11/ejercicio11/content/Profesor/infrastructure/ControladorProfesor.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejercicio13 - copia/src/main/java/ejercicio11/ejercicio11/content/Profesor/infrastructure/dto/input/ProfesorInputDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejercicio13 - copia/src/main/java/ejercicio11/ejercicio11/content/Profesor/infrastructure/dto/output/ProfesorOutputDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejercicio13 - copia/src/main/java/ejercicio11/ejercicio11/content/Profesor/repository/ProfesorRepo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejercicio13 - copia/src/main/java/ejercicio11/ejercicio11/exceptions/CustomError.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejercicio13 - copia/src/main/java/ejercicio11/ejercicio11/exceptions/CustomErrorExceptionHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejercicio13 - copia/src/main/java/ejercicio11/ejercicio11/exceptions/NotFoundException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejercicio13 - copia/src/main/java/ejercicio11/ejercicio11/exceptions/UnprocesableException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejercicio13 - copia/src/main/java/ejercicio11/ejercicio11/shared/StringPrefixedSequenceIdGenerator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejercicio13 - copia/src/main/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ejercicio13 - copia/src/test/java/ejercicio11/ejercicio11/Ejercicio11ApplicationTests.java" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -9,6 +55,9 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="25HMMMFNgBoZAhG2lMLtqVdc5Ek" />
   <component name="ProjectViewState">
