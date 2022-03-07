@@ -1,0 +1,32 @@
+.menu {
+    display: flex;
+    background-color: aquamarine;
+    width: 600px;
+    height: 500px;
+    flex-direction: column;
+    padding-left: 50px;
+}
+
+.contenedor {
+    align-items: center;
+    padding-left: 20px;
+    display: flex;
+    justify-content: space-between;
+    gap: 5px 100px;
+    width: 450px;
+}
+
+input {
+    width: 200px;
+    margin: 1mm;
+}
+
+.elemento {
+    width: 150px;
+    margin: 2mm;
+}
+
+.botones {
+    padding-left: 200px;
+    padding-top: 30px;
+}
