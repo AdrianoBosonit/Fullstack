@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link REL=StyleSheet href="./style.css">
+    <title>Formulario Front</title>
+</head>
+
+<body>
+    <div class="menu">
+        <h2>Personas</h2>
+        <div class="cabecera">
+            <i class='fas fa-user-plus'></i>
+            <span>A continuación inserte sus datos</span>
+        </div>
+        <form id="formulario">
+            <div class="contenedor">
+                <label class="elemento">Usuario</label>
+                <input id="inputUsuario" type="text" autocomplete="username">
+            </div>
+            <div class="contenedor">
+                <label class="elemento">Apellido</label>
+                <input id="inputApellido" type="text" autocomplete="family-name">
+            </div>
+            <div class="contenedor">
+                <label class="elemento">Contraseña</label>
+                <input id="inputUsuarioContrasena" type="password">
+            </div>
+            <div class="contenedor">
+                <label class="elemento">Nombre</label>
+                <input id="inputName" type="text" autocomplete="username">
+            </div>
+            <div class="contenedor">
+                <label class="elemento">Email de la compañía</label>
+                <input id="inputEmailCompañia" type="email" autocomplete="email">
+            </div>
+            <div class="contenedor">
+                <label class="elemento">Email de persona</label>
+                <input id="inputEmailPersonal" type="email" autocomplete="email">
+            </div>
+            <div class="contenedor">
+                <label class="elemento">Ciudad</label>
+                <input id="inputCiudad" type="text">
+            </div>
+            <div class="contenedor">
+                <label class="elemento">url de la imagen</label>
+                <input id="inputUrlImagen" type="url">
+            </div>
+            <div class="contenedor">
+                <label class="elemento">Fecha de creación</label>
+                <input id="inputFechaCreacion" type="date">
+            </div>
+            <div class="contenedor">
+                <label class="elemento">Activado</label>
+                <input id="inputActivo" type="checkbox">
+            </div>
+            <div class="contenedor">
+                <label class="elemento">Fecha de finalización</label>
+                <input id="inputFechaFinalizacion" type="date">
+            </div>
+            <div class="botones">
+                <input id="botonEnviar" type="submit" value="Enviar" />
+                <input id="botonLimpiar" type="reset" value="Limpiar" />
+            </div>
+
+    </div>
+
+    </form>
+
+    </div>
+    <script src="index.js" type="module"></script>
+</body>
+
+</html>

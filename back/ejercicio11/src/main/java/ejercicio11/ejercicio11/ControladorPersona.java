@@ -42,9 +42,10 @@ public class ControladorPersona {
         return personaService.removeId(Integer.parseInt(id));
     }
 
-    @PutMapping("/userUpdate")
-    public PersonaOutputDTO userUpdate(@RequestBody String persona) throws Exception {
-        return personaService.modify(object.readValue(persona, PersonaInputDTO.class));
+    @PutMapping("/update/{id}")
+    public PersonaOutputDTO userUpdate(@RequestBody PersonaInputDTO personaInputDTO,@PathVariable String id) throws Exception {
+        personaInputDTO.setId(Integer.parseInt(id));
+        return personaService.modify(personaInputDTO);
     }
 
 }
