@@ -49,23 +49,33 @@ function handleSubmit(e) {
     }
 
     fetch(URL_PUT + idPersona, {
-        method: "PUT",
-        body: JSON.stringify({
-            id: persona.idPersona,
-            usuario: persona.usuario,
-            name: persona.name,
-            surname: persona.surname,
-            password: persona.password,
-            company_email: persona.company_email,
-            personal_email: persona.personal_email,
-            city: persona.city,
-            imagen_url: persona.imagen_url,
-            created_date: persona.created_date,
-            active: persona.active,
-            termination_date: persona.termination_date
-        }),
-        headers: {
-            "Content-Type": "application/json"
-        }
-    })
+            method: "PUT",
+            body: JSON.stringify({
+                id: persona.idPersona,
+                usuario: persona.usuario,
+                name: persona.name,
+                surname: persona.surname,
+                password: persona.password,
+                company_email: persona.company_email,
+                personal_email: persona.personal_email,
+                city: persona.city,
+                imagen_url: persona.imagen_url,
+                created_date: persona.created_date,
+                active: persona.active,
+                termination_date: persona.termination_date
+            }),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(r => r.json().then(data => ({ status: r.status, body: data })))
+        .then(obj => {
+            if (obj.status >= 400) {
+                alert("Error " + obj.body.httpCode + "\n" + obj.body.mensaje);
+            } else {
+                alert("Persona actualizada correctamente");
+            }
+            console.log(obj)
+
+        });
+
 }

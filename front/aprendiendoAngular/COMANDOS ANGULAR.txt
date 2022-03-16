@@ -1,0 +1,6 @@
+ng new nombreApp
+ng serve
+npm i -g json -serve
+npm run serverAPI
+ng add @angular/material
+ng g m pages/products -m=app --route products
