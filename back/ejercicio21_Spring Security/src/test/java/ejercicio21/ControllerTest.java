@@ -1,10 +1,10 @@
-package ejercicio20;
+package ejercicio21;
 
-import ejercicio20.Persona.application.service.PersonaService;
-import ejercicio20.Persona.domain.PersonaEntity;
-import ejercicio20.Persona.infrastructure.ControladorPersona;
-import ejercicio20.Persona.infrastructure.dto.input.PersonaInputDTO;
-import ejercicio20.Persona.infrastructure.dto.output.PersonaOutputDTO;
+import ejercicio21.Persona.application.service.PersonaService;
+import ejercicio21.Persona.domain.PersonaEntity;
+import ejercicio21.Persona.infrastructure.ControladorPersona;
+import ejercicio21.Persona.infrastructure.dto.input.PersonaInputDTO;
+import ejercicio21.Persona.infrastructure.dto.output.PersonaOutputDTO;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -49,7 +49,6 @@ public class ControllerTest {
     @Before
     public void init() throws Exception {
         personaInputDTO = new PersonaInputDTO();
-        personaInputDTO.setId(1);
         personaInputDTO.setName("Testeando");
         personaInputDTO.setUsuario("Usuario");
         personaInputDTO.setCity("Ciudad");
@@ -59,6 +58,7 @@ public class ControllerTest {
         personaInputDTO.setActive(true);
         personaInputDTO.setCreated_date(new Date());
         persona = new PersonaEntity(personaInputDTO);
+        persona.setId(1);
         personaOutputDTO = new PersonaOutputDTO(persona);
     }
 
@@ -107,8 +107,8 @@ public class ControllerTest {
     @Test
     public void findByUserTest() throws Exception {
         List<PersonaOutputDTO> lista = Arrays.asList(personaOutputDTO);
-        given(personaService.buscaNombre(persona.getUsuario())).willReturn(lista);
-        mockMvc.perform(get("/nombre/" + persona.getUsuario())
+        given(personaService.buscaNombre(persona.getUsername())).willReturn(lista);
+        mockMvc.perform(get("/nombre/" + persona.getUsername())
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(1)))

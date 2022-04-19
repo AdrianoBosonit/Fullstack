@@ -1,24 +1,27 @@
-package ejercicio20.Persona.infrastructure;
+package ejercicio21.Persona.infrastructure;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import ejercicio20.Persona.infrastructure.dto.input.PersonaInputDTO;
-import ejercicio20.Persona.infrastructure.dto.output.PersonaOutputDTO;
-import ejercicio20.Persona.application.service.PersonaService;
+import ejercicio21.Persona.infrastructure.dto.input.PersonaInputDTO;
+import ejercicio21.Persona.infrastructure.dto.output.PersonaOutputDTO;
+import ejercicio21.Persona.application.service.PersonaService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
-import java.util.HashMap;
+import javax.validation.Valid;
 import java.util.List;
+
 
 @RestController
 public class ControladorPersona {
     @Autowired
     PersonaService personaService;
 
+    @Autowired
+    BCryptPasswordEncoder bCryptPasswordEncoder;
+
     @PostMapping("/userAdd")
-    public PersonaOutputDTO userAdd(@RequestBody PersonaInputDTO personaInputDTO) throws Exception {
+    public PersonaOutputDTO userAdd(@Valid @RequestBody PersonaInputDTO personaInputDTO) throws Exception {
+        personaInputDTO.setPassword(bCryptPasswordEncoder.encode(personaInputDTO.getPassword()));
         return personaService.anadirPersona(personaInputDTO);
     }
 
@@ -47,5 +50,6 @@ public class ControladorPersona {
     public PersonaOutputDTO userUpdate(@RequestBody PersonaInputDTO personaInputDTO, @PathVariable String id) throws Exception {
         return personaService.modify(personaInputDTO, Integer.parseInt(id));
     }
+
 
 }

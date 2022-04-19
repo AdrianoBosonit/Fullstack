@@ -1,0 +1,6 @@
+Primero dentro de la carpeta descargada ponemos el siguiente comando:
+.\bin\windows\zookeeper-server-start.bat config/zookeeper.properties
+Segundo en otro cmd
+.\bin\windows\kafka-server-start.bat config/server.properties
+Leer eventos, detras de --topic ponemos el topic que hallamos asignado
+.\bin\windows\kafka-console-consumer.bat --topic ejercicio22 --from-beginning --bootstrap-server localhost:9092
