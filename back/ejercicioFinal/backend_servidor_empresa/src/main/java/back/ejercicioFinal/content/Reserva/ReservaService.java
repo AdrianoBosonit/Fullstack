@@ -1,6 +1,13 @@
 package back.ejercicioFinal.content.Reserva;
 
+import java.util.List;
+
 public interface ReservaService {
-    public ReservaOutputDto add(ReservaOutputDto reservaOutputDto);
+    public ReservaOutputDto addAndSend(ReservaInputDto reservaInputDto) throws Exception;
+
     public ReservaOutputDto removeId(String id);
+
+    public List<ReservaEntity> findAll();
+
+    ReservaEntity add(ReservaEntity reservaEntity);
 }

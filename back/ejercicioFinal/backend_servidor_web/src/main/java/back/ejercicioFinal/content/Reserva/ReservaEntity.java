@@ -1,60 +1,81 @@
 package back.ejercicioFinal.content.Reserva;
 
+import back.ejercicioFinal.content.Autobus.AutobusEntity;
+import back.ejercicioFinal.shared.StringPrefixedSequenceIdGenerator;
+import back.ejercicioFinal.shared.validator.CheckValores;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Future;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.Locale;
-
-
 
 @Data
 @Entity
 @Table(name = "reserva")
+@NoArgsConstructor
 public class ReservaEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column
-    private Integer idReserva;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "reserva_seq")
+    @GenericGenerator(
+            name = "reserva_seq",
+            strategy = "back.ejercicioFinal.shared.StringPrefixedSequenceIdGenerator",
+            parameters = {
+                    @org.hibernate.annotations.Parameter(name = StringPrefixedSequenceIdGenerator.INCREMENT_PARAM, value = "1"),
+                    @org.hibernate.annotations.Parameter(name = StringPrefixedSequenceIdGenerator.VALUE_PREFIX_PARAMETER, value = "RES_"),
+                    @org.hibernate.annotations.Parameter(name = StringPrefixedSequenceIdGenerator.NUMBER_FORMAT_PARAMETER, value = "%05d")
+            })
+    @Column(name = "idReserva")
+    private String idReserva;
 
-    @Column
-    @Pattern(regexp = "((^ VALENCIA $ | ^ MADRID $ | ^ BARCELONA $ | ^ BILBAO $))")
-    @NotBlank
+    @NotNull
+    @Column(name = "ciudad", columnDefinition = "VARCHAR(60) CHECK (ciudad IN ('BARCELONA', 'VALENCIA','MADRID','BILBAO'))")
+    @CheckValores(parametros = "BARCELONA && VALENCIA && MADRID && BILBAO")
     private String ciudad;
 
+    @NotNull
     @Column
-    @NotBlank
     private String nombre;
 
+    @NotNull
     @Column
-    @NotBlank
     private String apellidos;
 
+    @NotNull
     @Column
-    @NotBlank
     private String telefono;
 
+    @NotNull
     @Column
-    @NotBlank
     @Email
     private String email;
 
+    @NotNull
     @Column
-    @NotBlank
+    @Future
     private Date fechaReserva;
 
-    @Column
-    @NotBlank
-    @Pattern(regexp = "((^ 8 $ | ^ 12 $ | ^ 16 $ | ^ 20 $))")
+    @NotNull
+    @Column(name = "horaReserva")
+    @CheckValores(parametros = "8.0 && 12.0 && 16.0 && 20.0")
+    //@Pattern(regexp = "((^ 8.0 $ | ^ 12.0 $ | ^ 16.0 $ | ^ 20.0 $))")
     private Float horaReserva;
 
+    @NotNull
     @Column
     private Boolean confirmado;
 
-    public ReservaEntity(ReservaInputDto reservaInputDto) {
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference
+    AutobusEntity busReserva;
+
+
+    public ReservaEntity(ReservaInputDto reservaInputDto) throws Exception {
         this.ciudad = reservaInputDto.getCiudad().toUpperCase(Locale.ROOT);
         this.nombre = reservaInputDto.getNombre();
         this.apellidos = reservaInputDto.getApellidos();
@@ -62,6 +83,44 @@ public class ReservaEntity {
         this.email = reservaInputDto.getEmail();
         this.fechaReserva = reservaInputDto.getFechaReserva();
         this.horaReserva = reservaInputDto.getHoraReserva();
-        this.confirmado=false;
+        if (horaReserva != 8 && horaReserva != 12 && horaReserva != 16 && horaReserva != 20)
+            throw new Exception();
+        this.confirmado = false;
+        this.busReserva = null;
+    }
+
+    public ReservaEntity(ReservaInputDto reservaInputDto, AutobusEntity autobusEntity) throws Exception {
+        this.ciudad = reservaInputDto.getCiudad().toUpperCase(Locale.ROOT);
+        this.nombre = reservaInputDto.getNombre();
+        this.apellidos = reservaInputDto.getApellidos();
+        this.telefono = reservaInputDto.getTelefono();
+        this.email = reservaInputDto.getEmail();
+        this.fechaReserva = reservaInputDto.getFechaReserva();
+        this.horaReserva = reservaInputDto.getHoraReserva();
+        if (horaReserva != 8 && horaReserva != 12 && horaReserva != 16 && horaReserva != 20)
+            throw new Exception();
+        this.confirmado = false;
+        this.busReserva = autobusEntity;
+    }
+
+    public ReservaEntity sinBus() {
+        this.busReserva = null;
+        return this;
+    }
+
+    @Override
+    public String toString() {
+        return "ReservaEntity{" +
+                "idReserva='" + idReserva + '\'' +
+                ", ciudad='" + ciudad + '\'' +
+                ", nombre='" + nombre + '\'' +
+                ", apellidos='" + apellidos + '\'' +
+                ", telefono='" + telefono + '\'' +
+                ", email='" + email + '\'' +
+                ", fechaReserva=" + fechaReserva +
+                ", horaReserva=" + horaReserva +
+                ", confirmado=" + confirmado +
+                ", busReserva=" + busReserva +
+                '}';
     }
 }

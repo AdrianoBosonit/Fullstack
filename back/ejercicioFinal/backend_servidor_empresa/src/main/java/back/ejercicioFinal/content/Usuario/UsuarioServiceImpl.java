@@ -42,8 +42,6 @@ public class UsuarioServiceImpl implements UsuarioService, UserDetailsService {
     public void checkToken(String username,String content) throws Exception {
         TokenEntity tokenEntity=tokenRepo.findByContent(content).get(0);
         UsuarioEntity usuarioEntity=usuarioRepo.findByUsername(username).get(0);
-        System.out.println(tokenEntity);
-        System.out.println(usuarioEntity);
         if(!tokenEntity.equals(usuarioEntity.getTokenEntity()))
             throw new Exception("No existe");
     }

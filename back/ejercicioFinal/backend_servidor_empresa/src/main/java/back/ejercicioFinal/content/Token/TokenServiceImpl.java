@@ -18,7 +18,6 @@ public class TokenServiceImpl implements TokenService {
         UsuarioEntity user=usuarioRepo.findByUsername(username).get(0);
         user.setTokenEntity(tokenRepo.saveAndFlush(new TokenEntity( token, header)));
         user=usuarioRepo.saveAndFlush(user);
-        System.out.println(user);
         return user.getTokenEntity();
     }
 

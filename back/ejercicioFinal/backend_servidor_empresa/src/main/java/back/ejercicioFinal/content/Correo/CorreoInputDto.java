@@ -1,6 +1,6 @@
 package back.ejercicioFinal.content.Correo;
 
-import back.ejercicioFinal.content.Reserva.ReservaOutputDto;
+import back.ejercicioFinal.content.Reserva.ReservaEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,10 +16,10 @@ public class CorreoInputDto {
     private Date fechaReserva;
     private Float horaReserva;
 
-    public CorreoInputDto(ReservaOutputDto reservaOutputDto) {
-        this.ciudad = reservaOutputDto.getCiudadDestino();
-        this.email = reservaOutputDto.getEmail();
-        this.fechaReserva = reservaOutputDto.getFechaReserva();
-        this.horaReserva = reservaOutputDto.getHoraReserva();
+    public CorreoInputDto(ReservaEntity reservaEntity) {
+        this.ciudad = reservaEntity.getCiudad();
+        this.email = reservaEntity.getEmail();
+        this.fechaReserva = reservaEntity.getFechaReserva();
+        this.horaReserva = reservaEntity.getHoraReserva();
     }
 }

@@ -17,8 +17,8 @@ public class ControladorReserva {
     ReservaService reservaService;
 
     @PostMapping("reserva")
-    public ReservaOutputDto addReserva(@Valid @RequestBody ReservaInputDto reservaInputDto) {
-        return reservaService.add(reservaInputDto);
+    public ReservaOutputDto addReserva(@RequestBody @Valid ReservaInputDto reservaInputDto) throws Exception {
+        return reservaService.addAndSend(reservaInputDto);
     }
 
     //    required=false

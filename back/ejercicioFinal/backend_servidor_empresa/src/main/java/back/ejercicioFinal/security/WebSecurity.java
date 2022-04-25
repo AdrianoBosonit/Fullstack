@@ -40,6 +40,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.authorizeRequests().antMatchers("/api/v0/token").permitAll();
         http.authorizeRequests().antMatchers("/api/v0/token/**").permitAll();
+        http.authorizeRequests().antMatchers("/api/v0/add/**").permitAll();
         http.authorizeRequests().antMatchers("/**").hasAnyAuthority("ADMIN");
         http.authorizeRequests().anyRequest().authenticated();
         http.addFilterBefore(jwtAuthenticationFilter, BasicAuthenticationFilter.class);

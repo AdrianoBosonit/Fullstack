@@ -1,15 +1,15 @@
 package back.ejercicioFinal.content.Autobus;
 
 import back.ejercicioFinal.content.Reserva.ReservaEntity;
-import back.ejercicioFinal.content.Reserva.ReservaOutputDto;
 import back.ejercicioFinal.exception.BadRequestException;
 import back.ejercicioFinal.shared.StringPrefixedSequenceIdGenerator;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -38,14 +38,14 @@ public class AutobusEntity {
     @Column
     private Float horaSalida;
 
-    @OneToMany(mappedBy = "busReserva", cascade = CascadeType.ALL)
-    @Size(min = 0, max = 2)
-    private List<ReservaEntity> reservas;
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "busReserva", cascade = CascadeType.ALL)
+    @JsonBackReference
+    private List<@Valid ReservaEntity> reservas;
 
-    public AutobusEntity(ReservaOutputDto reservaOutputDto) {
-        this.ciudadDestino = reservaOutputDto.getCiudadDestino();
-        this.fechaSalida = reservaOutputDto.getFechaReserva();
-        this.horaSalida = reservaOutputDto.getHoraReserva();
+    public AutobusEntity(ReservaEntity reservaEntity) {
+        this.ciudadDestino = reservaEntity.getCiudad();
+        this.fechaSalida = reservaEntity.getFechaReserva();
+        this.horaSalida = reservaEntity.getHoraReserva();
         this.reservas = new ArrayList<>();
     }
 

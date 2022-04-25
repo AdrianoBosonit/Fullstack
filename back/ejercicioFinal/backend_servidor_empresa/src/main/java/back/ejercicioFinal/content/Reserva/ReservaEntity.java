@@ -3,6 +3,7 @@ package back.ejercicioFinal.content.Reserva;
 import back.ejercicioFinal.content.Autobus.AutobusEntity;
 import back.ejercicioFinal.content.Correo.CorreoEntity;
 import back.ejercicioFinal.shared.StringPrefixedSequenceIdGenerator;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -66,11 +67,9 @@ public class ReservaEntity {
     private Boolean confirmado;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference
     AutobusEntity busReserva;
 
-    @OneToOne
-    @JoinColumn(name="idCorreo")
-    private CorreoEntity correo;
 
     public ReservaEntity(ReservaInputDto reservaInputDto) throws Exception {
         this.ciudad = reservaInputDto.getCiudad().toUpperCase(Locale.ROOT);
@@ -84,7 +83,6 @@ public class ReservaEntity {
             throw new Exception();
         this.confirmado = false;
         this.busReserva = null;
-        this.correo=null;
     }
 
     public ReservaEntity(ReservaOutputDto reservaOutputDto) throws Exception {
@@ -98,23 +96,25 @@ public class ReservaEntity {
         if (horaReserva != 8 && horaReserva != 12 && horaReserva != 16 && horaReserva != 20)
             throw new Exception();
         this.confirmado = false;
-        this.correo=null;
     }
 
-    public ReservaEntity(ReservaOutputDto reservaOutputDto, AutobusEntity autobusEntity, CorreoEntity correoEntity) throws Exception {
-        this.ciudad = reservaOutputDto.getCiudadDestino().toUpperCase(Locale.ROOT);
-        this.nombre = reservaOutputDto.getNombre();
-        this.apellidos = reservaOutputDto.getApellido();
-        this.telefono = reservaOutputDto.getTelefono();
-        this.email = reservaOutputDto.getEmail();
-        this.fechaReserva = reservaOutputDto.getFechaReserva();
-        this.horaReserva = reservaOutputDto.getHoraReserva();
+    public ReservaEntity(ReservaInputDto reservaInputDto, AutobusEntity autobusEntity, CorreoEntity correoEntity) throws Exception {
+        this.ciudad = reservaInputDto.getCiudad().toUpperCase(Locale.ROOT);
+        this.nombre = reservaInputDto.getNombre();
+        this.apellidos = reservaInputDto.getApellidos();
+        this.telefono = reservaInputDto.getTelefono();
+        this.email = reservaInputDto.getEmail();
+        this.fechaReserva = reservaInputDto.getFechaReserva();
+        this.horaReserva = reservaInputDto.getHoraReserva();
         if (horaReserva != 8 && horaReserva != 12 && horaReserva != 16 && horaReserva != 20)
             throw new Exception();
         this.confirmado = false;
         this.busReserva = autobusEntity;
-        this.correo=correoEntity;
+    }
 
+    public ReservaEntity sinBus() {
+        this.busReserva = null;
+        return this;
     }
 
     @Override
@@ -130,7 +130,6 @@ public class ReservaEntity {
                 ", horaReserva=" + horaReserva +
                 ", confirmado=" + confirmado +
                 ", busReserva=" + busReserva +
-                ", correo=" + correo.getIdCorreo() +
                 '}';
     }
 }

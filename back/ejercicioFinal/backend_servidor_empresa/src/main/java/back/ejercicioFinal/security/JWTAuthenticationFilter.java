@@ -76,13 +76,8 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
 
         Map<String, String> tokens = new HashMap<>();
-        System.out.println(user);
-        System.out.println(user.getPassword());
         tokenService.add("Bearer",access_token,user.getUsername(),user.getPassword());
-        //System.out.println("Aqui "+tokenEntity.toString());
-        //tokenService.add("Bearer",access_token,user.getUsername(),user.getPassword());
         tokens.put("access_token", "Bearer " + access_token);
-        //tokens.put("refresh_token", refresh_token);
         response.setContentType(APPLICATION_JSON_VALUE);
         new ObjectMapper().writeValue(response.getOutputStream(), tokens);
 

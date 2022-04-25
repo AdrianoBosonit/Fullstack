@@ -1,11 +1,12 @@
 package back.ejercicioFinal.content.Reserva;
 
-import back.ejercicioFinal.content.Reserva.ReservaEntity;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.Date;
 
 @Data
+@AllArgsConstructor
 public class ReservaOutputDto {
     private String ciudadDestino;
     private String nombre;

@@ -1,5 +1,6 @@
 package back.ejercicioFinal.content.Reserva;
 
+import back.ejercicioFinal.shared.kafka.MessageProducer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,14 +14,23 @@ public class ControladorReserva {
     ReservaService reservaService;
 
     @PostMapping("reserva")
-    public ReservaOutputDto addReserva(@Valid @RequestBody ReservaOutputDto reservaOutputDto) {
-        return reservaService.add(reservaOutputDto);
+    public ReservaOutputDto addReserva(@Valid @RequestBody ReservaInputDto reservaInputDto) throws Exception {
+        return reservaService.addAndSend(reservaInputDto);
     }
 
     @DeleteMapping("/{id}")
     public void reservaRemoveId(@PathVariable String id) {
         reservaService.removeId(id);
     }
+
+    @Autowired
+    MessageProducer kafkaMessageProducer;
+
+//    @PostMapping("/add/{topic}")
+//    public void addIdCustomer(@PathVariable String topic, @RequestBody ReservaInputDto body)
+//    {
+//        kafkaMessageProducer.sendMessageTopic1(topic,body);
+//    }
 
 //    @GetMapping("disponible/{ciudad}")
 //    public List<ReservaDisponibleOutputDto> getReserva(@PathVariable String ciudad, @RequestParam(value = "fechaInferior") @DateTimeFormat(pattern = "dd-MM-yyyy") Date fechaInferior,

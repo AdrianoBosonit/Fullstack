@@ -29,11 +29,11 @@ public class CorreoServiceImpl implements CorreoService {
         List<CorreoEntity> listaCorreo = correoRepo.findByCiudadAndFechaReservaAndHoraReserva(correoInputDto.getCiudad(), correoInputDto.getFechaReserva(), correoInputDto.getHoraReserva());
         if (listaCorreo.isEmpty())
             throw new BadRequestException("Correo no encontrado");
-        List<ReservaEntity> listaReserva = reservaRepo.findByCorreo(listaCorreo.get(0));
-        if (listaReserva.isEmpty())
+        ReservaEntity reservaEntity = reservaRepo.findByCiudadAndEmailAndFechaReservaAndHoraReserva(correoInputDto.getCiudad(), correoInputDto.getEmail(),correoInputDto.getFechaReserva(), correoInputDto.getHoraReserva());
+        if (reservaEntity.equals(null))
             throw new BadRequestException("ID de reserva no encontrado");
         mailSender.sendEmail(correoInputDto);
-        return new ReservaOutputDto(listaReserva.get(0));
+        return new ReservaOutputDto(reservaEntity);
     }
 
     @Override
