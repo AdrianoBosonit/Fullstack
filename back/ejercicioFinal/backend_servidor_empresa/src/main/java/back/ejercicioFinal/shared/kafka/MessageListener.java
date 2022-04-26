@@ -8,13 +8,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
-import java.util.HashMap;
-import java.util.Map;
-
 @Component
 public class MessageListener {
 
-    Map<String, MessageKafka> map = new HashMap<String, MessageKafka>();
     ReservaDeserializer reservaDeserializer = new ReservaDeserializer();
 
     @Autowired
@@ -28,6 +24,15 @@ public class MessageListener {
         if (!messageKafka.getGrupo().equals(grupo)) {
             System.out.println("Reserva recibida desde topic1 " + messageKafka);
             reservaService.add(messageKafka.getReservaEntity());
+            System.out.println("Objeto deserializado correctamente");
+        }
+    }
+
+    @KafkaListener(topics = "${message.topic.name2:kafkatopic}", groupId = "${message.group.name:kafkagroup}")
+    public void listenTopic2(MessageKafka messageKafka) {
+        if (!messageKafka.getGrupo().equals(grupo)) {
+            System.out.println("Reserva recibida desde topic1 " + messageKafka);
+            //reservaService.add(messageKafka.getReservaEntity());
             System.out.println("Objeto deserializado correctamente");
         }
     }

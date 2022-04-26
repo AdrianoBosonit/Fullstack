@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -38,9 +37,9 @@ public class AutobusEntity {
     @Column
     private Float horaSalida;
 
-    @OneToMany(fetch = FetchType.EAGER,mappedBy = "busReserva", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "busReserva", cascade = CascadeType.ALL,orphanRemoval = true)
     @JsonBackReference
-    private List<@Valid ReservaEntity> reservas;
+    private List<ReservaEntity> reservas;
 
     public AutobusEntity(ReservaEntity reservaEntity) {
         this.ciudadDestino = reservaEntity.getCiudad();

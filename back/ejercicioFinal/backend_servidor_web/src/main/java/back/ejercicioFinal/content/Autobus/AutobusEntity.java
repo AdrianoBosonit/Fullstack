@@ -37,10 +37,8 @@ public class AutobusEntity {
     @Column
     private Float horaSalida;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "busReserva", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "busReserva", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonBackReference
-    //@LimitarLista(tam = 2)
-    //@Size.List(value = @LimitarLista(tam = 2))
     private List<ReservaEntity> reservas;
 
     public AutobusEntity(ReservaEntity reservaEntity) {

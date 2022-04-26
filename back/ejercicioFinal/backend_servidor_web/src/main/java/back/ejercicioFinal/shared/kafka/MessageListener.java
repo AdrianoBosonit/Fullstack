@@ -35,5 +35,25 @@ public class MessageListener {
         }
     }
 
+    @KafkaListener(topics = "${message.topic.name2:kafkatopic}", groupId = "${message.group.name:kafkagroup}")
+    public void listenTopic2(MessageKafka messageKafka) {
+        if (!messageKafka.getGrupo().equals(grupo)) {
+            System.out.println("Reserva recibida desde topic2 " + messageKafka);
+            switch (messageKafka.getAccion()) {
+                case UPDATE:
+                    System.out.println("Actualizando...");
+                    reservaService.updateReservaFromEmpresa(messageKafka.getReservaEntity());
+                    break;
+                case DELETE:
+                    System.out.println("Borrando...");
+                    reservaService.removeId(messageKafka.getReservaEntity().getIdReserva());
+                    break;
+
+            }
+
+
+            System.out.println("Objeto deserializado correctamente");
+        }
+    }
 
 }

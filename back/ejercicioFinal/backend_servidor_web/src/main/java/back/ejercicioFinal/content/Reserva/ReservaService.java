@@ -7,5 +7,9 @@ public interface ReservaService {
 
     public List<ReservaEntity> findAll();
 
+    ReservaOutputDto removeId(String id);
+
     ReservaEntity add(ReservaEntity reservaEntity);
+
+    void updateReservaFromEmpresa(ReservaEntity reservaEntity);
 }

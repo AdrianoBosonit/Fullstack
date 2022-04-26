@@ -3,8 +3,10 @@ package back.ejercicioFinal.content.Reserva;
 import back.ejercicioFinal.content.Autobus.AutobusEntity;
 import back.ejercicioFinal.content.Autobus.AutobusRepo;
 import back.ejercicioFinal.exception.BadRequestException;
+import back.ejercicioFinal.shared.kafka.MessageKafka;
 import back.ejercicioFinal.shared.kafka.MessageProducer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,11 +22,32 @@ public class ReservaServiceImpl implements ReservaService {
     @Autowired
     MessageProducer messageProducer;
 
+    @Value(value = "${message.group.name}")
+    private String grupo;
+
+
     @Override
     public ReservaOutputDto addAndSend(ReservaInputDto reservaInputDto) throws Exception {
         ReservaEntity reservaEntity = add(new ReservaEntity(reservaInputDto));
-        messageProducer.sendMessageTopic1("sincronizacion", reservaEntity.sinBus());
+        messageProducer.sendMessageTopic("sincronizacion", new MessageKafka(grupo, MessageKafka.Accion.CREATE, reservaEntity.sinBus()));
         return new ReservaOutputDto(reservaEntity);
+    }
+
+    @Override
+    public ReservaOutputDto removeId(String id) {
+        ReservaEntity reservaEntity = reservaRepo.findById(id).orElseThrow(() -> new BadRequestException("ID de autobus no encontrado"));
+        AutobusEntity autobusEntity = autobusRepo.findById(reservaEntity.getBusReserva().getIdBus()).get();
+        autobusEntity.getReservas().remove(reservaEntity);
+        System.out.println(reservaEntity);
+        //reservaRepo.deleteById(reservaEntity.getIdReserva());
+        if (autobusEntity.getReservas().size() == 0) {
+            autobusRepo.deleteById(autobusEntity.getIdBus());
+        }
+        autobusRepo.saveAndFlush(autobusEntity);
+        System.out.println(reservaRepo.findAll());
+        System.out.println(autobusRepo.findAll());
+        return new ReservaOutputDto(reservaEntity);
+
     }
 
     @Override
@@ -46,12 +69,28 @@ public class ReservaServiceImpl implements ReservaService {
             autobusRepo.saveAndFlush(autobusEntity);
             return reservaEntity;
         } catch (Exception e) {
-            throw new BadRequestException("Reserva invalida: "+e);
+            throw new BadRequestException("Reserva invalida: " + e);
         }
     }
 
     @Override
     public List<ReservaEntity> findAll() {
         return reservaRepo.findAll();
+    }
+
+    @Override
+    public void updateReservaFromEmpresa(ReservaEntity reservaEntity) {
+        ReservaEntity reserva = reservaRepo.findById(reservaEntity.getIdReserva()).orElseThrow(() -> new BadRequestException("Error"));
+        AutobusEntity autobusEntity = autobusRepo.findById(reserva.getBusReserva().getIdBus()).orElseThrow(() -> new BadRequestException("Error"));
+        for (int i = 0; i < autobusEntity.getReservas().size(); i++) {
+            if (autobusEntity.getReservas().get(i).equals(reserva.getIdReserva())) {
+                reservaRepo.saveAndFlush(autobusEntity.getReservas().get(i).updateReserva(reservaEntity));
+
+            }
+        }
+        autobusRepo.saveAndFlush(autobusEntity);
+
+        System.out.println(reservaRepo.findAll());
+        System.out.println(autobusRepo.findAll());
     }
 }

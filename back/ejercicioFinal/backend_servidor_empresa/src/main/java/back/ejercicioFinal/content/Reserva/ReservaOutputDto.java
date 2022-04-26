@@ -25,4 +25,5 @@ public class ReservaOutputDto {
         this.fechaReserva = reservaEntity.getFechaReserva();
         this.horaReserva = reservaEntity.getHoraReserva();
     }
+
 }

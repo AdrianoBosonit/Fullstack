@@ -3,6 +3,7 @@ package back.ejercicioFinal.content.Reserva;
 import back.ejercicioFinal.content.Autobus.AutobusEntity;
 import back.ejercicioFinal.content.Correo.CorreoEntity;
 import back.ejercicioFinal.shared.StringPrefixedSequenceIdGenerator;
+import back.ejercicioFinal.shared.validator.CheckValores;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -33,7 +34,8 @@ public class ReservaEntity {
     private String idReserva;
 
     @NonNull
-    @Column(name = "ciudad", columnDefinition = "VARCHAR(60) CHECK (ciudad IN ('BARCELONA', 'VALENCIA','MADRID','BILBAO'))")
+    @Column(name = "ciudad")
+    @CheckValores(parametros = "BARCELONA && VALENCIA && MADRID && BILBAO")
     private String ciudad;
 
     @NonNull
@@ -59,6 +61,7 @@ public class ReservaEntity {
 
     @NonNull
     @Column(name = "horaReserva")
+    @CheckValores(parametros = "8.0 && 12.0 && 16.0 && 20.0")
     //@Pattern(regexp = "((^ 8.0 $ | ^ 12.0 $ | ^ 16.0 $ | ^ 20.0 $))")
     private Float horaReserva;
 
@@ -66,8 +69,9 @@ public class ReservaEntity {
     @Column
     private Boolean confirmado;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JsonBackReference
+    @JoinColumn(name="idBus")
     AutobusEntity busReserva;
 
 
@@ -79,9 +83,7 @@ public class ReservaEntity {
         this.email = reservaInputDto.getEmail();
         this.fechaReserva = reservaInputDto.getFechaReserva();
         this.horaReserva = reservaInputDto.getHoraReserva();
-        if (horaReserva != 8 && horaReserva != 12 && horaReserva != 16 && horaReserva != 20)
-            throw new Exception();
-        this.confirmado = false;
+        this.confirmado = true;
         this.busReserva = null;
     }
 
@@ -93,9 +95,7 @@ public class ReservaEntity {
         this.email = reservaOutputDto.getEmail();
         this.fechaReserva = reservaOutputDto.getFechaReserva();
         this.horaReserva = reservaOutputDto.getHoraReserva();
-        if (horaReserva != 8 && horaReserva != 12 && horaReserva != 16 && horaReserva != 20)
-            throw new Exception();
-        this.confirmado = false;
+        this.confirmado = true;
     }
 
     public ReservaEntity(ReservaInputDto reservaInputDto, AutobusEntity autobusEntity, CorreoEntity correoEntity) throws Exception {
@@ -106,9 +106,7 @@ public class ReservaEntity {
         this.email = reservaInputDto.getEmail();
         this.fechaReserva = reservaInputDto.getFechaReserva();
         this.horaReserva = reservaInputDto.getHoraReserva();
-        if (horaReserva != 8 && horaReserva != 12 && horaReserva != 16 && horaReserva != 20)
-            throw new Exception();
-        this.confirmado = false;
+        this.confirmado = true;
         this.busReserva = autobusEntity;
     }
 

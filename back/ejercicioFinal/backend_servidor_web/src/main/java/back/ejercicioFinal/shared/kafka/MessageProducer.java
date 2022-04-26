@@ -1,7 +1,5 @@
 package back.ejercicioFinal.shared.kafka;
 
-import back.ejercicioFinal.content.Reserva.ReservaEntity;
-import back.ejercicioFinal.content.Reserva.ReservaInputDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -18,23 +16,8 @@ public class MessageProducer {
     @Value(value = "${message.group.name}")
     private String grupo;
 
-    public void sendMessageTopic1(String topic, ReservaEntity reservaEntity) {
-        ListenableFuture<SendResult<String, Object>> future = kafkaTemplate.send(topic, new MessageKafka(grupo, reservaEntity));
-        future.addCallback(new ListenableFutureCallback<SendResult<String, Object>>() {
-            @Override
-            public void onSuccess(SendResult<String, Object> result) {
-                System.out.println("Reserva enviada al topico " + topic + " with offset=[" + result.getRecordMetadata().offset() + "]");
-            }
-
-            @Override
-            public void onFailure(Throwable ex) {
-                System.err.println("Mensaje no enviado");
-            }
-        });
-    }
-
-    public void sendMessageTopic2(String topic, ReservaInputDto objeto) {
-        ListenableFuture<SendResult<String, Object>> future = kafkaTemplate.send(topic, objeto);
+    public void sendMessageTopic(String topic, MessageKafka messageKafka) {
+        ListenableFuture<SendResult<String, Object>> future = kafkaTemplate.send(topic, messageKafka);
         future.addCallback(new ListenableFutureCallback<SendResult<String, Object>>() {
             @Override
             public void onSuccess(SendResult<String, Object> result) {

@@ -7,6 +7,8 @@ public interface ReservaService {
 
     public ReservaOutputDto removeId(String id);
 
+    void removeBus(String id);
+
     public List<ReservaEntity> findAll();
 
     ReservaEntity add(ReservaEntity reservaEntity);

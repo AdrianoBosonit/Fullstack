@@ -32,16 +32,16 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        JWTAuthenticationFilter jwtAuthenticationFilter = new JWTAuthenticationFilter(authenticationManagerBean(),tokenService);
+        JWTAuthenticationFilter jwtAuthenticationFilter = new JWTAuthenticationFilter(authenticationManagerBean(), tokenService);
         jwtAuthenticationFilter.setFilterProcessesUrl("/api/v0/login");
         JWTAuthorizationFilter jwtAuthorizationFilter = new JWTAuthorizationFilter();
 
         http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        http.authorizeRequests().antMatchers("/api/v0/token").permitAll();
-        http.authorizeRequests().antMatchers("/api/v0/token/**").permitAll();
-        http.authorizeRequests().antMatchers("/api/v0/add/**").permitAll();
-        http.authorizeRequests().antMatchers("/**").hasAnyAuthority("ADMIN");
+        http.authorizeRequests().antMatchers("**").permitAll();
+//        http.authorizeRequests().antMatchers("/api/v0/token").permitAll();
+//        http.authorizeRequests().antMatchers("/api/v0/token/**").permitAll();
+//        http.authorizeRequests().antMatchers("/**").hasAnyAuthority("ADMIN");
         http.authorizeRequests().anyRequest().authenticated();
         http.addFilterBefore(jwtAuthenticationFilter, BasicAuthenticationFilter.class);
         http.addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class);

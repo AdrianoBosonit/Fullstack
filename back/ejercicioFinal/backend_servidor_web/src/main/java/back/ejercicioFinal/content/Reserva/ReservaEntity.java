@@ -34,7 +34,7 @@ public class ReservaEntity {
     private String idReserva;
 
     @NotNull
-    @Column(name = "ciudad", columnDefinition = "VARCHAR(60) CHECK (ciudad IN ('BARCELONA', 'VALENCIA','MADRID','BILBAO'))")
+    @Column(name = "ciudad")
     @CheckValores(parametros = "BARCELONA && VALENCIA && MADRID && BILBAO")
     private String ciudad;
 
@@ -63,15 +63,15 @@ public class ReservaEntity {
     @NotNull
     @Column(name = "horaReserva")
     @CheckValores(parametros = "8.0 && 12.0 && 16.0 && 20.0")
-    //@Pattern(regexp = "((^ 8.0 $ | ^ 12.0 $ | ^ 16.0 $ | ^ 20.0 $))")
     private Float horaReserva;
 
     @NotNull
     @Column
     private Boolean confirmado;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JsonBackReference
+    @JoinColumn(name="idBus")
     AutobusEntity busReserva;
 
 
@@ -83,8 +83,6 @@ public class ReservaEntity {
         this.email = reservaInputDto.getEmail();
         this.fechaReserva = reservaInputDto.getFechaReserva();
         this.horaReserva = reservaInputDto.getHoraReserva();
-        if (horaReserva != 8 && horaReserva != 12 && horaReserva != 16 && horaReserva != 20)
-            throw new Exception();
         this.confirmado = false;
         this.busReserva = null;
     }
@@ -97,14 +95,25 @@ public class ReservaEntity {
         this.email = reservaInputDto.getEmail();
         this.fechaReserva = reservaInputDto.getFechaReserva();
         this.horaReserva = reservaInputDto.getHoraReserva();
-        if (horaReserva != 8 && horaReserva != 12 && horaReserva != 16 && horaReserva != 20)
-            throw new Exception();
         this.confirmado = false;
         this.busReserva = autobusEntity;
     }
 
     public ReservaEntity sinBus() {
         this.busReserva = null;
+        return this;
+    }
+
+    public ReservaEntity updateReserva(ReservaEntity reservaEntity){
+        this.ciudad = reservaEntity.getCiudad();
+        this.nombre = reservaEntity.getNombre();
+        this.apellidos = reservaEntity.getApellidos();
+        this.telefono = reservaEntity.getTelefono();
+        this.email = reservaEntity.getEmail();
+        this.fechaReserva = reservaEntity.getFechaReserva();
+        this.horaReserva = reservaEntity.getHoraReserva();
+        this.confirmado = reservaEntity.getConfirmado();
+        this.busReserva = reservaEntity.getBusReserva();
         return this;
     }
 
