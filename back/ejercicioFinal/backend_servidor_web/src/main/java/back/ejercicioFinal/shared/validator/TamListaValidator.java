@@ -1,6 +1,6 @@
 package back.ejercicioFinal.shared.validator;
 
-import back.ejercicioFinal.content.Reserva.ReservaEntity;
+import back.ejercicioFinal.content.Reserva.domain.ReservaEntity;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

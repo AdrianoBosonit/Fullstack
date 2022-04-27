@@ -1,7 +1,7 @@
 package back.ejercicioFinal.shared.kafka;
 
 
-import back.ejercicioFinal.content.Reserva.ReservaService;
+import back.ejercicioFinal.content.Reserva.application.interfaces.ReservaService;
 import back.ejercicioFinal.shared.kafka.Deserializer.ReservaDeserializer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

@@ -12,10 +12,6 @@ public class MessageProducer {
     @Autowired
     private KafkaTemplate<String, Object> kafkaTemplate;
 
-    //@Value(value = "${message.topic.name:kafkatopic}")
-    private String topicName;
-
-
     public void sendMessageTopic(String topic, MessageKafka messageKafka) {
         ListenableFuture<SendResult<String, Object>> future = kafkaTemplate.send(topic, messageKafka);
         future.addCallback(new ListenableFutureCallback<SendResult<String, Object>>() {

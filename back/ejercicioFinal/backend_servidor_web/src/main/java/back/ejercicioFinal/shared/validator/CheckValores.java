@@ -14,7 +14,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Target({METHOD, FIELD, ANNOTATION_TYPE})
 @Retention(RUNTIME)
 public @interface CheckValores {
-    String message() default "CheckValores";
+    String message() default "Check no valido";
     String parametros();
 
     Class<?>[] groups() default {};

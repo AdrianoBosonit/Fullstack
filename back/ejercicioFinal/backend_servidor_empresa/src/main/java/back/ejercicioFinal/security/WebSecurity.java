@@ -1,6 +1,6 @@
 package back.ejercicioFinal.security;
 
-import back.ejercicioFinal.content.Token.TokenService;
+import back.ejercicioFinal.content.Token.application.interfaces.TokenService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

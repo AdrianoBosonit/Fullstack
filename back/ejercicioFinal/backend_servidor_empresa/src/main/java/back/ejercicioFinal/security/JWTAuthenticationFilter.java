@@ -1,6 +1,6 @@
 package back.ejercicioFinal.security;
 
-import back.ejercicioFinal.content.Token.TokenService;
+import back.ejercicioFinal.content.Token.application.interfaces.TokenService;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -28,18 +28,12 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @Data
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
-    //private TokenService tokens;
-
-    //    @Autowired
-//    @Qualifier("Token")
-//    TokensService Tokens;
-
     private final TokenService tokenService;
     private final AuthenticationManager authenticationManager;
 
-    public JWTAuthenticationFilter(AuthenticationManager authenticationManager,TokenService tokenService) {
+    public JWTAuthenticationFilter(AuthenticationManager authenticationManager, TokenService tokenService) {
         this.authenticationManager = authenticationManager;
-        this.tokenService=tokenService;
+        this.tokenService = tokenService;
     }
 
     @Override
@@ -76,7 +70,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
 
         Map<String, String> tokens = new HashMap<>();
-        tokenService.add("Bearer",access_token,user.getUsername(),user.getPassword());
+        tokenService.add("Bearer", access_token, user.getUsername(), user.getPassword());
         tokens.put("access_token", "Bearer " + access_token);
         response.setContentType(APPLICATION_JSON_VALUE);
         new ObjectMapper().writeValue(response.getOutputStream(), tokens);

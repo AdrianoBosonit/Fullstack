@@ -18,7 +18,7 @@ public class CheckValoresValidator implements ConstraintValidator<CheckValores, 
 
     @Override
     public boolean isValid(Object object, ConstraintValidatorContext constraintValidatorContext) {
-        Set<String> set = new HashSet<String>(Arrays.asList(parametros.replace(" ","").split("&&")));
+        Set<String> set = new HashSet<String>(Arrays.asList(parametros.replace(" ", "").split("&&")));
         if (set.contains(object.toString())) {
             return true;
         } else {

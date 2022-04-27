@@ -1,7 +1,7 @@
 package back.ejercicioFinal;
 
-import back.ejercicioFinal.content.Usuario.UsuarioInputDto;
-import back.ejercicioFinal.content.Usuario.UsuarioService;
+import back.ejercicioFinal.content.Usuario.infrastructure.dto.UsuarioInputDto;
+import back.ejercicioFinal.content.Usuario.application.interfaces.UsuarioService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
