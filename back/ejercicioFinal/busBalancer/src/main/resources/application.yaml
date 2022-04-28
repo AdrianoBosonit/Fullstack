@@ -1,5 +1,5 @@
 server:
-  port: 8085
+  port: 8980
 
 eureka:
   client:
@@ -20,7 +20,7 @@ spring:
         - id: BackWeb
           uri: lb://BackWeb
           predicates:
-            - Path=/api/web/**
+            - Path=/api/v0/**
         - id: BackEmpresa
           uri: lb://BackEmpresa
           predicates:

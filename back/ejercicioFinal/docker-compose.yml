@@ -1,24 +1,100 @@
-
 version: '2'
 services:
-  zookeeper:
-    image: confluentinc/cp-zookeeper:latest
-    environment:
-      ZOOKEEPER_CLIENT_PORT: 2181
-      ZOOKEEPER_TICK_TIME: 2000
-    ports:
-      - 22181:2181
+    zookeeper:
+        image: confluentinc/cp-zookeeper:latest
+        environment:
+            ZOOKEEPER_CLIENT_PORT: 2181
+            ZOOKEEPER_TICK_TIME: 2000
+        ports:
+        - 22181:2181
   
-  kafka:
-    image: confluentinc/cp-kafka:latest
-    depends_on:
-      - zookeeper
-    ports:
-      - 29092:29092
-    environment:
-      KAFKA_BROKER_ID: 1
-      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
-      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
-      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    kafka:
+        image: confluentinc/cp-kafka:latest
+        depends_on:
+            - zookeeper
+        ports:
+            - 29092:29092
+        environment:
+          KAFKA_BROKER_ID: 1
+          KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+          KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092
+          KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+          KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+          KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+          
+    eureka:
+        container_name: eureka
+        build:
+            context: ./eurekaBus
+            dockerfile: Dockerfile
+        ports:
+        - "8761:8761"
+    balanceador:
+        command: sh -c "sleep 30"
+        container_name: balanceador
+        build:
+            context: ./busBalancer
+            dockerfile: Dockerfile
+        ports:
+            - "8980:8980"
+        
+        
+    postgres_Back_Empresa:
+        image: postgres:13.1
+        healthcheck:
+          test: [ "CMD", "pg_isready", "-q", "-d", "postgres", "-U", "root" ]
+          timeout: 45s
+          interval: 10s
+          retries: 10
+        restart: always
+        environment:
+          - POSTGRES_USER=adriano
+          - POSTGRES_PASSWORD=adriano
+          - POSTGRES_DB=test
+          - APP_DB_USER=docker
+          - APP_DB_PASS=docker
+          - APP_DB_NAME=docker
+        volumes:
+          - ./db:/docker-entrypoint-initdb.d/
+        ports:
+          - 5433:5432
+    postgres_Back_Web_1:
+        image: postgres:13.1
+        healthcheck:
+          test: [ "CMD", "pg_isready", "-q", "-d", "postgres", "-U", "root" ]
+          timeout: 45s
+          interval: 10s
+          retries: 10
+        restart: always
+        environment:
+          - POSTGRES_USER=adriano
+          - POSTGRES_PASSWORD=adriano
+          - POSTGRES_DB=test
+          - APP_DB_USER=docker
+          - APP_DB_PASS=docker
+          - APP_DB_NAME=docker
+        volumes:
+          - ./db:/docker-entrypoint-initdb.d/
+        ports:
+          - 5434:5432
+    postgres_Back_Web_2:
+        image: postgres:13.1
+        healthcheck:
+          test: [ "CMD", "pg_isready", "-q", "-d", "postgres", "-U", "root" ]
+          timeout: 45s
+          interval: 10s
+          retries: 10
+        restart: always
+        environment:
+          - POSTGRES_USER=adriano
+          - POSTGRES_PASSWORD=adriano
+          - POSTGRES_DB=test
+          - APP_DB_USER=docker
+          - APP_DB_PASS=docker
+          - APP_DB_NAME=docker
+        volumes:
+          - ./db:/docker-entrypoint-initdb.d/
+        ports:
+          - 5435:5432
+
+        
