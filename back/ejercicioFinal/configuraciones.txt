@@ -1,0 +1,2 @@
+BackWeb1: server.port=8081;message.group.name=groupId2;spring.datasource.url=jdbc:postgresql://localhost:5434/test;eureka.instance.instance-id=${spring.application.name}:1
+BackWeb2: server.port=8082;message.group.name=groupId3;spring.datasource.url=jdbc:postgresql://localhost:5435/test;eureka.instance.instance-id=${spring.application.name}:2

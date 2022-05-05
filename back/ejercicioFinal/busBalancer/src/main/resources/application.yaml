@@ -6,22 +6,25 @@ eureka:
     fetch-registry: true
     register-with-eureka: true
     service-url:
-      default-zone: http://localhost:8761/eureka
+      default-zone: http://localhost:8761/eureka/
   instance:
     hostname: localhost
+    instance-id: Balanceador
 
 spring:
+  application:
+    name: Balanceador
   cloud:
     gateway:
       discovery:
         locator:
           enabled: true
       routes:
-        - id: BackWeb
-          uri: lb://BackWeb
+        - id: BackWeb1
+          uri: lb://BackWeb:1
           predicates:
             - Path=/api/v0/**
-        - id: BackEmpresa
-          uri: lb://BackEmpresa
+        - id: BackWeb2
+          uri: lb://BackWeb:2
           predicates:
-            - Path=/api/empresa/**
+            - Path=/api/v0/**
