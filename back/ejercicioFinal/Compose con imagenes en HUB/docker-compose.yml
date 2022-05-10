@@ -1,20 +1,14 @@
 version: '2'
 services:
     eureka:
-        image: eureka
-        container_name: eureka
-        build:
-            context: ./eurekaBus
-            dockerfile: Dockerfile
+        image: adrianobravoguzman/eureka
+        container_name: eureka_hub
         ports:
         - "8761:8761"
     
     balanceador:
-        image: balanceador
-        container_name: balanceador
-        build:
-            context: ./busBalancer
-            dockerfile: Dockerfile
+        image: adrianobravoguzman/balanceador
+        container_name: balanceador_hub
         ports:
             - "8980:8980"
         links:
@@ -25,8 +19,8 @@ services:
             eureka.client.service-url.defaultZone: http://eureka:8761/eureka
         
     zookeeper:
-        image: confluentinc/cp-zookeeper
-        container_name: zookeeper
+        image: adrianobravoguzman/zookeeper
+        container_name: zookeeper_hub
         environment:
             ZOOKEEPER_CLIENT_PORT: 2181
             ZOOKEEPER_TICK_TIME: 2000
@@ -34,8 +28,8 @@ services:
         - 22181:2181
   
     kafka:
-        image: confluentinc/cp-kafka
-        container_name: kafka
+        image: adrianobravoguzman/kafka
+        container_name: kafka_hub
         depends_on:
             - zookeeper
         ports:
@@ -51,9 +45,9 @@ services:
 
         
     postgresBackEmpresa:
-        image: postgres
+        image: adrianobravoguzman/postgres
         restart: always
-        container_name: postgresBackEmpresa
+        container_name: postgresBackEmpresa_hub
         environment:
           - POSTGRES_USER=adriano
           - POSTGRES_PASSWORD=adriano
@@ -62,9 +56,9 @@ services:
           - '5433:5432'
           
     postgresBackWeb1:
-        image: postgres
+        image: adrianobravoguzman/postgres
         restart: always
-        container_name: postgresBackWeb1
+        container_name: postgresBackWeb1_hub
         environment:
           - POSTGRES_USER=adriano
           - POSTGRES_PASSWORD=adriano
@@ -74,9 +68,9 @@ services:
           
           
     postgresBackWeb2:
-        image: postgres
+        image: adrianobravoguzman/postgres
         restart: always
-        container_name: postgresBackWeb2
+        container_name: postgresBackWeb2_hub
         environment:
           - POSTGRES_USER=adriano
           - POSTGRES_PASSWORD=adriano
@@ -86,11 +80,8 @@ services:
         
     
     backEmpresa:
-        image: backempresadocker
-        container_name: backEmpresa
-        build:
-            context: ./backend_servidor_empresa
-            dockerfile: Dockerfile
+        image: adrianobravoguzman/backempresadocker
+        container_name: backEmpresa_hub
         environment:
           - spring.datasource.url=jdbc:postgresql://postgresBackEmpresa:5432/test
           - spring.kafka.bootstrap-servers=kafka:9092
@@ -105,11 +96,8 @@ services:
     
             
     backWeb2:
-        image: backweb2docker
-        container_name: backWeb2
-        build:
-            context: ./backend_servidor_web
-            dockerfile: Dockerfile
+        image: adrianobravoguzman/backweb2docker
+        container_name: backWeb2_hub
         environment:
           - spring.datasource.url=jdbc:postgresql://postgresBackWeb2:5432/test
           - spring.kafka.bootstrap-servers=kafka:9092
@@ -131,11 +119,8 @@ services:
             
             
     backWeb1:
-        image: backweb1docker
-        container_name: backWeb1
-        build:
-            context: ./backend_servidor_web
-            dockerfile: Dockerfile
+        image: adrianobravoguzman/backweb1docker
+        container_name: backWeb1_hub
         environment:
           - spring.datasource.url=jdbc:postgresql://postgresBackWeb1:5432/test
           - spring.kafka.bootstrap-servers=kafka:9092
