@@ -725,7 +725,13 @@
 					"name": "DeleteReserva",
 					"request": {
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c3VhcmlvIiwicm9sZXMiOlsiQURNSU4iXSwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL2FwaS92MC9sb2dpbiIsImV4cCI6MTY1MjE2ODM3M30.UrhBFptyNMJxmSgB_-f0txX0PBseNVngGnbBdPCyuWg",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "localhost:8080/api/v0/deleteReserva/RES_00001",
 							"host": [
@@ -746,7 +752,13 @@
 					"name": "DeleteBus",
 					"request": {
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c3VhcmlvIiwicm9sZXMiOlsiQURNSU4iXSwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL2FwaS92MC9sb2dpbiIsImV4cCI6MTY1MjE2ODM3M30.UrhBFptyNMJxmSgB_-f0txX0PBseNVngGnbBdPCyuWg",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "localhost:8080/api/v0/deleteBus/BUS_00001",
 							"host": [
