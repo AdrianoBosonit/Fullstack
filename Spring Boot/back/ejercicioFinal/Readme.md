@@ -9,6 +9,7 @@ Este proyecto es un ejercicio en el que aplicaremos los conceptos aprendidos dur
 la formacion de Java para realizar una aplicacion que simule una agencia de viajes de autobus.
 
 ## 1. Descripcion
+
 Una agencia de autobuses que se encuentra en Vitoria realiza viajes para los siguientes destinos:
 - Valencia
 - Madrid
@@ -70,6 +71,7 @@ En este segundo topico volvemos a enviar nuestra clase Mensaje pero esta clase, 
 La lógica de este proyecto no contempla que desde el backWeb se puedan borrar o actualizar alguna reserva, algo que tiene mucho sentido, ya que un usuario no puede gestionar las reservas, no tiene sentido, aunque esta implementado y doy esa posibilidad en los endpoints, dará error porque el resto de aplicaciones no se actualizan.
 
 ##  6. Manual de usuario
+
 En primer lugar, para iniciar la aplicación lo que haremos será descargar el proyecto y ejecutar el archivo docker-compose.yml para generar los contenedores correspondientes y arrancar la aplicación.(requiere tener docker instalado)
 Para ello, en la ruta de la raiz del proyecto, pondremos el siguiente comando: 
 ```sh
@@ -86,6 +88,7 @@ Después de instalar correctamente la aplicación en docker, podemos empezar a r
 Como podemos observar, principalmente dividimos la colección en dos grandes grupos. BackWeb y BackEmpresa. Como dice en el word del ejercicio todos usan la ruta localhost:{puerto}/api/v0/{endpoint}. Los nombres que pongo a la izquierda es como los llamo yo en el Postman que tengo adjunto, una vez abierto se puede ver la verdadera ruta.
 
 ### 6.1 BackWeb y Balanceador:
+
 <img src="https://github.com/AdrianoBosonit/Fullstack/blob/main/Spring%20Boot/back/ejercicioFinal/imagenesReadme/backWebPostman.png">
 
 Para todos los backwebs son los mismos endpoints pero en mi caso, voy a explicarlos para "ServidorBackWeb EUREKA" puesto que es el que se corresponde con el balanceador de carga y este se encargará de alternar entre las dos webs que tenemos en la aplicación.
