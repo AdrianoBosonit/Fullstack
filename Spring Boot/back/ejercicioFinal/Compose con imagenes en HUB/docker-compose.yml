@@ -1,0 +1,145 @@
+version: '2'
+services:
+    eureka:
+        image: adrianobravoguzman/eureka
+        container_name: eureka_hub
+        ports:
+        - "8761:8761"
+    
+    balanceador:
+        image: adrianobravoguzman/balanceador
+        container_name: balanceador_hub
+        ports:
+            - "8980:8980"
+        links:
+            - "eureka"
+        depends_on:
+            - "eureka"
+        environment:
+            eureka.client.service-url.defaultZone: http://eureka:8761/eureka
+        
+    zookeeper:
+        image: adrianobravoguzman/zookeeper
+        container_name: zookeeper_hub
+        environment:
+            ZOOKEEPER_CLIENT_PORT: 2181
+            ZOOKEEPER_TICK_TIME: 2000
+        ports:
+        - 22181:2181
+  
+    kafka:
+        image: adrianobravoguzman/kafka
+        container_name: kafka_hub
+        depends_on:
+            - zookeeper
+        ports:
+            - 29092:29092
+            - 9092:9092
+        environment:
+          KAFKA_BROKER_ID: 1
+          KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+          KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092
+          KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+          KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+          KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+
+        
+    postgresBackEmpresa:
+        image: adrianobravoguzman/postgres
+        restart: always
+        container_name: postgresBackEmpresa_hub
+        environment:
+          - POSTGRES_USER=adriano
+          - POSTGRES_PASSWORD=adriano
+          - POSTGRES_DB=test
+        ports:
+          - '5433:5432'
+          
+    postgresBackWeb1:
+        image: adrianobravoguzman/postgres
+        restart: always
+        container_name: postgresBackWeb1_hub
+        environment:
+          - POSTGRES_USER=adriano
+          - POSTGRES_PASSWORD=adriano
+          - POSTGRES_DB=test
+        ports:
+          - '5434:5432'
+          
+          
+    postgresBackWeb2:
+        image: adrianobravoguzman/postgres
+        restart: always
+        container_name: postgresBackWeb2_hub
+        environment:
+          - POSTGRES_USER=adriano
+          - POSTGRES_PASSWORD=adriano
+          - POSTGRES_DB=test
+        ports:
+          - '5435:5432'
+        
+    
+    backEmpresa:
+        image: adrianobravoguzman/backempresadocker
+        container_name: backEmpresa_hub
+        environment:
+          - spring.datasource.url=jdbc:postgresql://postgresBackEmpresa:5432/test
+          - spring.kafka.bootstrap-servers=kafka:9092
+        ports:
+            - '8080:8080'
+        depends_on:
+            - postgresBackEmpresa
+            - kafka
+            - eureka
+            - balanceador
+            
+    
+            
+    backWeb2:
+        image: adrianobravoguzman/backweb2docker
+        container_name: backWeb2_hub
+        environment:
+          - spring.datasource.url=jdbc:postgresql://postgresBackWeb2:5432/test
+          - spring.kafka.bootstrap-servers=kafka:9092
+          - eureka.client.service-url.defaultZone=http://eureka:8761/eureka
+          - eureka.instance.instance-id=BackWeb:2
+          - message.group.name=groupId2
+          - server.port=8082
+    
+        ports:
+          - '8082:8082'
+          
+        depends_on:
+          - postgresBackWeb2
+          - kafka
+          - eureka
+          - balanceador  
+            
+
+            
+            
+    backWeb1:
+        image: adrianobravoguzman/backweb1docker
+        container_name: backWeb1_hub
+        environment:
+          - spring.datasource.url=jdbc:postgresql://postgresBackWeb1:5432/test
+          - spring.kafka.bootstrap-servers=kafka:9092
+          - eureka.client.service-url.defaultZone=http://eureka:8761/eureka
+          - eureka.instance.instance-id=BackWeb:1
+          - message.group.name=groupId1
+          - server.port=8081
+    
+        ports:
+          - '8081:8081'
+          
+        depends_on:
+          - postgresBackWeb1
+          - kafka
+          - eureka
+          - balanceador 
+
+        
+            
+
+        
+        

@@ -1,0 +1,160 @@
+version: '2'
+services:
+    eureka:
+        image: eureka
+        container_name: eureka
+        build:
+            context: ./eurekaBus
+            dockerfile: Dockerfile
+        ports:
+        - "8761:8761"
+    
+    balanceador:
+        image: balanceador
+        container_name: balanceador
+        build:
+            context: ./busBalancer
+            dockerfile: Dockerfile
+        ports:
+            - "8980:8980"
+        links:
+            - "eureka"
+        depends_on:
+            - "eureka"
+        environment:
+            eureka.client.service-url.defaultZone: http://eureka:8761/eureka
+        
+    zookeeper:
+        image: confluentinc/cp-zookeeper
+        container_name: zookeeper
+        environment:
+            ZOOKEEPER_CLIENT_PORT: 2181
+            ZOOKEEPER_TICK_TIME: 2000
+        ports:
+        - 22181:2181
+  
+    kafka:
+        image: confluentinc/cp-kafka
+        container_name: kafka
+        depends_on:
+            - zookeeper
+        ports:
+            - 29092:29092
+            - 9092:9092
+        environment:
+          KAFKA_BROKER_ID: 1
+          KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+          KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092
+          KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+          KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+          KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+
+        
+    postgresBackEmpresa:
+        image: postgres
+        restart: always
+        container_name: postgresBackEmpresa
+        environment:
+          - POSTGRES_USER=adriano
+          - POSTGRES_PASSWORD=adriano
+          - POSTGRES_DB=test
+        ports:
+          - '5433:5432'
+          
+    postgresBackWeb1:
+        image: postgres
+        restart: always
+        container_name: postgresBackWeb1
+        environment:
+          - POSTGRES_USER=adriano
+          - POSTGRES_PASSWORD=adriano
+          - POSTGRES_DB=test
+        ports:
+          - '5434:5432'
+          
+          
+    postgresBackWeb2:
+        image: postgres
+        restart: always
+        container_name: postgresBackWeb2
+        environment:
+          - POSTGRES_USER=adriano
+          - POSTGRES_PASSWORD=adriano
+          - POSTGRES_DB=test
+        ports:
+          - '5435:5432'
+        
+    
+    backEmpresa:
+        image: backempresadocker
+        container_name: backEmpresa
+        build:
+            context: ./backend_servidor_empresa
+            dockerfile: Dockerfile
+        environment:
+          - spring.datasource.url=jdbc:postgresql://postgresBackEmpresa:5432/test
+          - spring.kafka.bootstrap-servers=kafka:9092
+        ports:
+            - '8080:8080'
+        depends_on:
+            - postgresBackEmpresa
+            - kafka
+            - eureka
+            - balanceador
+            
+    
+            
+    backWeb2:
+        image: backweb2docker
+        container_name: backWeb2
+        build:
+            context: ./backend_servidor_web
+            dockerfile: Dockerfile
+        environment:
+          - spring.datasource.url=jdbc:postgresql://postgresBackWeb2:5432/test
+          - spring.kafka.bootstrap-servers=kafka:9092
+          - eureka.client.service-url.defaultZone=http://eureka:8761/eureka
+          - eureka.instance.instance-id=BackWeb:2
+          - message.group.name=groupId2
+          - server.port=8082
+    
+        ports:
+          - '8082:8082'
+          
+        depends_on:
+          - postgresBackWeb2
+          - kafka
+          - eureka
+          - balanceador  
+            
+
+            
+            
+    backWeb1:
+        image: backweb1docker
+        container_name: backWeb1
+        build:
+            context: ./backend_servidor_web
+            dockerfile: Dockerfile
+        environment:
+          - spring.datasource.url=jdbc:postgresql://postgresBackWeb1:5432/test
+          - spring.kafka.bootstrap-servers=kafka:9092
+          - eureka.client.service-url.defaultZone=http://eureka:8761/eureka
+          - eureka.instance.instance-id=BackWeb:1
+          - message.group.name=groupId1
+          - server.port=8081
+    
+        ports:
+          - '8081:8081'
+          
+        depends_on:
+          - postgresBackWeb1
+          - kafka
+          - eureka
+          - balanceador 
+
+        
+            
+
+        
+        

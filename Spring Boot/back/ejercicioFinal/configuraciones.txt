@@ -1,0 +1,13 @@
+Estas son las configuraciones que hay que usar para arrancar las dos BackWeb
+
+BackWeb1: server.port=8081;message.group.name=groupId2;spring.datasource.url=jdbc:postgresql://localhost:5434/test;eureka.instance.instance-id=${spring.application.name}:1
+BackWeb2: server.port=8082;message.group.name=groupId3;spring.datasource.url=jdbc:postgresql://localhost:5435/test;eureka.instance.instance-id=${spring.application.name}:2
+
+Tengo el docker compose en este repositorio original para montar el docker con los archivos que tengo en el repositorio, si se desea esta todo subido a docker hub que con 
+solo ejecutar el compose de la carpeta "Compose con imagenes en HUB" ya tendriamos el contenedor, ademas esta el compose de mi compañero jose que he estado comprobando que
+todo funciona como el a mi con el Postman.
+
+Comando para arrancar docker-compose: docker-compose up -d
+
+Ademas tenemos un archivo scriptSubirADocker.bat que contiene una serie de comandos que ejecutan mi docker-compose, copia las imagenes renombradas y las sube a docker 
+hub. Esto ultimo es necesario, porque hay que añadir el nombre de usuario.
