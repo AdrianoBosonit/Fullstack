@@ -1,4 +1,4 @@
-﻿# Ejercicio Final Bosonit
+# Ejercicio Final Bosonit
 
 Este es el repositorio del ejercicio final de Bosonit, aqui explicare todo lo que he echo paso a paso, lo que hace cada endpoint etc.
 
@@ -45,7 +45,7 @@ Cada BackWeb tendrá su propia BBDD independiente. Lo mismo ocurrirá con BackEm
 
 ## 3.Diagrama del proyecto 
 
-<img src="https://github.com/AdrianoBosonit/Fullstack/blob/main/Spring%20Boot/back/ejercicioFinal/imagenesReadme/DiagramaBosonit.png" width="400"> 
+<img src="https://github.com/AdrianoBosonit/Fullstack/blob/main/Spring%20Boot/back/ejercicioFinal/imagenesReadme/DiagramaBosonit.png" > 
 
 ## 4. Aplicaciones
 
