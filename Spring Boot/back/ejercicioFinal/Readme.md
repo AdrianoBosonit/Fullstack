@@ -8,6 +8,7 @@ Este es el repositorio del ejercicio final de Bosonit, aqui explicare todo lo qu
 Este proyecto es un ejercicio en el que aplicaremos los conceptos aprendidos durante
 la formacion de Java para realizar una aplicacion que simule una agencia de viajes de autobus.
 
+
 ## 1. Descripcion
 
 Una agencia de autobuses que se encuentra en Vitoria realiza viajes para los siguientes destinos:
@@ -31,6 +32,7 @@ Existiran principalmente dos tipos de back: BackEmpresa y BackWeb
 
 Cada BackWeb tendrá su propia BBDD independiente. Lo mismo ocurrirá con BackEmpresa.
 
+
 ## 2. Tecnologías utilizadas
 
 <img src="https://github.com/AdrianoBosonit/Fullstack/blob/main/Spring%20Boot/back/ejercicioFinal/imagenesReadme/springbootLogo.png" width="150"> Implementar toda la lógica de la aplicación.
@@ -44,9 +46,11 @@ Cada BackWeb tendrá su propia BBDD independiente. Lo mismo ocurrirá con BackEm
 
 <img src="https://github.com/josemgarcia999/VIRTUAL-TRAVEL/blob/main/media/docker.png" width="150"> Exportar la aplicación y gestionar todos los servicios de cara al exterior.
 
+
 ## 3.Diagrama del proyecto 
 
 <img src="https://github.com/AdrianoBosonit/Fullstack/blob/main/Spring%20Boot/back/ejercicioFinal/imagenesReadme/DiagramaBosonit.png" > 
+
 
 ## 4. Aplicaciones
 
@@ -55,6 +59,7 @@ Nos podemos encontrar 4 carpetas referentes a las 4 aplicaciones que tenemos en 
 2. **BackEmpresa:** Aplicación que gestiona la base de datos de la empresa.
 3. **Balanceador:** Aplicación que gestiona el balanceo de carga junto con eureka
 4. **Eureka:** Aplicación que gestiona el balanceo de carga.
+
 
 ## 5.Logica
 
@@ -69,6 +74,7 @@ En este segundo topico volvemos a enviar nuestra clase Mensaje pero esta clase, 
 ¿Cómo funciona? Pues el backEmpresa cada minuto envía todas las acciones que están pendientes por el topico actualización, los backs Web lo escuchan y actualizan o eliminan las reservas.
 
 La lógica de este proyecto no contempla que desde el backWeb se puedan borrar o actualizar alguna reserva, algo que tiene mucho sentido, ya que un usuario no puede gestionar las reservas, no tiene sentido, aunque esta implementado y doy esa posibilidad en los endpoints, dará error porque el resto de aplicaciones no se actualizan.
+
 
 ##  6. Manual de usuario
 
@@ -86,6 +92,7 @@ Después de instalar correctamente la aplicación en docker, podemos empezar a r
 <img src="https://github.com/AdrianoBosonit/Fullstack/blob/main/Spring%20Boot/back/ejercicioFinal/imagenesReadme/todosEndPoints.png">
 
 Como podemos observar, principalmente dividimos la colección en dos grandes grupos. BackWeb y BackEmpresa. Como dice en el word del ejercicio todos usan la ruta localhost:{puerto}/api/v0/{endpoint}. Los nombres que pongo a la izquierda es como los llamo yo en el Postman que tengo adjunto, una vez abierto se puede ver la verdadera ruta.
+
 
 ### 6.1 BackWeb y Balanceador:
 
@@ -110,6 +117,7 @@ Para todos los backwebs son los mismos endpoints pero en mi caso, voy a explicar
 - **DeleteBus(*)** La url es: *localhost:8980/api/v0/deleteBus/{id}* Borra el autobús correspondiente a ese id.
 
 **NOTA(*):** Aunque estén implementados, yo nos los he utilizado puesto que la funcionalidad que he implementado consiste en que cuando borre una reserva desde backempresa, se borren en los backwebs en caso de que se encuentre en su base de datos. Están hechos para comprobar que la implementación estaba correcta.
+
 
 ### 6.2 BackEmpresa:
 
