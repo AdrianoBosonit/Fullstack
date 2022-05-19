@@ -1,0 +1,8 @@
+pip
+wheel
+Django
+sqlparse
+asgiref
+setuptools
+psycopg2
+pillow
